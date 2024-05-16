@@ -1,0 +1,20 @@
+pipeline {
+    agent any
+    tools {
+        maven 'maven-3.9.6'
+    }
+    
+    stages{
+        stage ('Checkout from github') {
+            steps{
+                git branch: 'main', credentialsId: 'maven-deployment', url: 'https://github.com/Tejasac07/maven_project.git'
+                sh 'ls -ltr'
+            }
+        }
+        stage ('Build package') {
+            steps{
+                sh 'mvn clean package'
+            }
+        }
+    }
+}
